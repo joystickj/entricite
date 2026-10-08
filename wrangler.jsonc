@@ -1,6 +1,6 @@
 {
   "name": "achroma-browser",
-  "main": "src/index.js",
+  "main": "public/transport/index.js",
   "compatibility_date": "2026-10-08",
   "assets": {
     "directory": "./public",
