@@ -1,3 +1,4 @@
+
 var $corridorController;
 (() => {
 var __webpack_modules__ = ({
@@ -163,7 +164,6 @@ __webpack_require__.d(__webpack_exports__, {
 var _mercuryworkshop_rpc__rspack_import_0 =
     __webpack_require__("./packages/rpc/index.ts");
 
-
 function makeId() {
     return Math.random()
         .toString(36)
@@ -243,6 +243,7 @@ class ControllerReference {
             new _mercuryworkshop_rpc__rspack_import_0.RpcHelper(
                 {
                     sendSetCookie:
+
                         async ({
                             cookies,
                             options
@@ -530,7 +531,6 @@ addEventListener(
 /* =========================================================
    ROUTE DETECTION
    ========================================================= */
-
 
 function shouldRoute(event) {
 
@@ -909,7 +909,9 @@ h1 {
 
     background:
         rgba(255,255,255,.035);
+}
 
+.error {
     color:
         #b9d8d2;
 
@@ -1023,19 +1025,15 @@ button.primary {
 
 </head>
 
-
 <body>
 
 <div class="bg">
     <div class="glow"></div>
 </div>
 
-
 <main class="card">
 
-    <div class="logo">
-        entry
-    </div>
+    <div class="logo">entry</div>
 
     <div class="badge">
         Browser Error
@@ -1091,24 +1089,19 @@ button.primary {
             status: 200,
 
             headers: {
-
                 "content-type":
                     "text/html; charset=utf-8",
 
                 "cache-control":
                     "no-store"
-
             }
         }
     );
-
 }
-
 
 /* =========================================================
    WAIT FOR CONTROLLER RE-REGISTRATION
    ========================================================= */
-
 
 const sleep =
     (ms) =>
@@ -1165,6 +1158,10 @@ async function tabAwaiting(
 
 }
 
+
+/* =========================================================
+   REQUEST ROUTING
+   ========================================================= */
 
 /* =========================================================
    REQUEST ROUTING
@@ -1236,6 +1233,7 @@ async function route(event) {
                         event.request.referrer,
 
                     method:
+
                         event.request.method,
 
                     body:
@@ -1322,7 +1320,6 @@ async function route(event) {
             e
         );
 
-
         if (
             isTopNavigation(
                 event
@@ -1364,17 +1361,6 @@ async function route(event) {
 
 /* =========================================================
    FETCH ROUTER
-
-   IMPORTANT:
-   Entry's proxied pages use /~/sj/.
-
-   We route an already-registered tab normally.
-
-   We ALSO intercept /~/sj/ when tabs[] is temporarily empty
-   after a browser/service-worker restart. route() then waits
-   briefly for the Entry client to re-register.
-
-   This prevents the request from falling through to Express.
    ========================================================= */
 
 
@@ -1411,7 +1397,6 @@ addEventListener(
 
     }
 );
-
 
 /* =========================================================
    SERVICE WORKER LIFECYCLE
