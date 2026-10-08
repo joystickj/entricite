@@ -1,3 +1,4 @@
+
 var $corridorController;
 (() => {
 var __webpack_modules__ = ({
@@ -243,6 +244,7 @@ class ControllerReference {
             new _mercuryworkshop_rpc__rspack_import_0.RpcHelper(
                 {
                     sendSetCookie:
+
                         async ({
                             cookies,
                             options
@@ -507,30 +509,33 @@ addEventListener(
             existing !==
             -1
         ) {
-
             tabs.splice(
                 existing,
                 1
             );
+        }
 
+        const port =
+            e.ports[0];
+
+        if (!port) {
+            return;
         }
 
         tabs.push(
             new ControllerReference(
                 init.prefix,
                 init.id,
-                e.ports[0]
+                port
             )
         );
 
     }
 );
 
-
 /* =========================================================
    ROUTE DETECTION
    ========================================================= */
-
 
 function shouldRoute(event) {
 
@@ -664,6 +669,8 @@ function errorPage(detail) {
     box-sizing: border-box;
 }
 
+}
+
 html,
 body {
     margin: 0;
@@ -753,6 +760,7 @@ body {
     bottom: -370px;
 
     width: 900px;
+
     height: 600px;
 
     transform:
@@ -1030,12 +1038,9 @@ button.primary {
     <div class="glow"></div>
 </div>
 
-
 <main class="card">
 
-    <div class="logo">
-        entry
-    </div>
+    <div class="logo">Entry</div>
 
     <div class="badge">
         Browser Error
@@ -1074,44 +1079,12 @@ button.primary {
 
     </div>
 
-    <div class="foot">
-        entry · private browser
-    </div>
-
-</main>
-
-</body>
-
-</html>`;
-
-
-    return new Response(
-        html,
-        {
-            status: 200,
-
-            headers: {
-
-                "content-type":
-                    "text/html; charset=utf-8",
-
-                "cache-control":
-                    "no-store"
-
-            }
-        }
-    );
-
-}
-
-
 /* =========================================================
    WAIT FOR CONTROLLER RE-REGISTRATION
    ========================================================= */
 
-
 const sleep =
-    (ms) =>
+    (ms)=>
         new Promise(
             (resolve)=>
                 setTimeout(
@@ -1121,9 +1094,9 @@ const sleep =
         );
 
 
-async function tabAwaiting(
+async function waitForTab(
     pathname,
-    timeoutMs = 2500
+    timeoutMs = 1600
 ) {
 
     let tab =
@@ -1137,17 +1110,16 @@ async function tabAwaiting(
 
     requestRevive();
 
-    const deadline =
-        Date.now() +
-        timeoutMs;
+    const started =
+        Date.now();
 
     while (
-        Date.now() <
-        deadline
+        Date.now() - started <
+        timeoutMs
     ) {
 
         await sleep(
-            100
+            50
         );
 
         tab =
@@ -1161,15 +1133,12 @@ async function tabAwaiting(
 
     }
 
-    return null;
-
+    return undefined;
 }
-
 
 /* =========================================================
    REQUEST ROUTING
    ========================================================= */
-
 
 async function route(event) {
 
@@ -1202,17 +1171,14 @@ async function route(event) {
 
         }
 
-
         const client =
             await clients.get(
                 event.clientId
             );
 
-
         const rawheaders = [
             ...event.request.headers
         ];
-
 
         const response =
             await tab.rpc.call(
@@ -1253,6 +1219,7 @@ async function route(event) {
                     rawClientUrl:
                         client
                             ? client.url
+
                             : undefined,
 
                     clientId:
@@ -1321,7 +1288,6 @@ async function route(event) {
             "[Entry] Service Worker error:",
             e
         );
-
 
         if (
             isTopNavigation(
@@ -1411,32 +1377,6 @@ addEventListener(
 
     }
 );
-
-
-/* =========================================================
-   SERVICE WORKER LIFECYCLE
-   ========================================================= */
-
-
-addEventListener(
-    "install",
-    ()=>{
-        self.skipWaiting();
-    }
-);
-
-
-addEventListener(
-    "activate",
-    (event)=>{
-
-        event.waitUntil(
-            clients.claim()
-        );
-
-    }
-);
-
 
 /* =========================================================
    REVIVE CONTROLLERS AFTER SERVICE WORKER START
