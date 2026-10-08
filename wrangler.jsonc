@@ -1,6 +1,7 @@
+
 {
-  "name": "achroma-browser",
-  "main": "public/transport/index.js",
+  "name": "entricite",
+  "main": "src/index.js",
   "compatibility_date": "2026-10-08",
   "assets": {
     "directory": "./public",
