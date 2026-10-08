@@ -1,3 +1,4 @@
+
 var $corridorController;
 (() => {
 var __webpack_modules__ = ({
@@ -210,6 +211,7 @@ function deepmergeConstructor (options) {
         ? cloneArray(entry)
         : cloneObject(entry)
       : entry
+
   }
 
   function mergeObject (target, source) {
@@ -411,7 +413,8 @@ class ConduitResponse extends Response {
             headers: new Headers(resp.headers),
             status: resp.status,
             statusText: resp.statusText,
-        });
+
+});
         response.url = url;
         response.redirected =
             resp.status >= 300 &&
@@ -567,6 +570,7 @@ __webpack_require__.d(__webpack_exports__, {
 // Re-exports of globalThis.$corridor (set by the IIFE bundle).
 const __external = /** @type {any} */ (globalThis).$corridor;
 const {
+
 	ConduitResponse,
 	CookieJar,
 	IncrementalHtmlRewriter,
@@ -660,7 +664,8 @@ __webpack_require__.n = (module) => {
 };
 
 })();
-// webpack/runtime/define_property_getters
+
+ // webpack/runtime/define_property_getters
 (() => {
 __webpack_require__.d = (exports, definition) => {
 	for(var key in definition) {
@@ -703,8 +708,6 @@ __webpack_require__.d(__webpack_exports__, {
 /* import */ var _mercuryworkshop_corridor__rspack_import_3 = __webpack_require__("./packages/core/dist/corridor-external.mjs");
 /* import */ var _symbols__rspack_import_4 = __webpack_require__("./packages/controller/src/symbols.ts");
 /* import */ var _version__rspack_import_5 = __webpack_require__("./packages/controller/src/version.ts");
-
-
 
 
 
@@ -768,6 +771,7 @@ function requestToPromise(request) {
 }
 function transactionToPromise(transaction) {
     return new Promise((resolve, reject)=>{
+
         transaction.oncomplete = ()=>resolve();
         transaction.onabort = ()=>reject(transaction.error ?? new Error("IndexedDB transaction aborted"));
         transaction.onerror = ()=>reject(transaction.error ?? new Error("IndexedDB transaction failed"));
@@ -873,6 +877,7 @@ class Controller {
             setTimeout(()=>{
                 this.guardServiceWorkerRevive = false;
             }, 5000);
+
         },
         request: async (data)=>{
             const path = new URL(data.rawUrl).pathname;
@@ -978,6 +983,7 @@ class Controller {
                             result: "success",
                             protocol: protocol,
                             extensions: extensions
+
                         });
                     }, (data)=>{
                         port.postMessage({
@@ -1078,6 +1084,7 @@ class Controller {
             if (e.data.$controller$swrevive) {
                 // if we just spawned the service worker, it will send this even though it's not actually dead
                 // TODO: pretty jank, fix at some point
+
                 if (this.guardServiceWorkerRevive) {
                     return;
                 }
@@ -1178,6 +1185,7 @@ class Controller {
         element ??= document.createElement("iframe");
         const frame = new Frame(this, element, options);
         this.frames.push(frame);
+
         return frame;
     }
     async wait() {
@@ -1278,6 +1286,7 @@ class Frame {
             crossOriginIsolated: self.crossOriginIsolated,
             context: this.context,
             transport: controller.transport,
+
             async sendSetCookie (cookies, options) {
                 await controller.persistCookies();
                 await controller.propagateCookieSync(cookies.map(({ url, cookie })=>({
